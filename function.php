@@ -57,8 +57,8 @@ break;
     break;  
 }
 }
-$dsn="mysql:host=localhost;charset=utf8;dbname=crud";
-$pdo=new PDO($dsn,'root','');
+// $dsn="mysql:host=localhost;charset=utf8;dbname=crud";
+// $pdo=new PDO($dsn,'root','');
 
 // all()-給定資料表名後，會回傳整個資料表的資料
 /*
