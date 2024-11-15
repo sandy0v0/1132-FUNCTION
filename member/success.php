@@ -9,10 +9,14 @@
     <h1>登入成功</h1>
 
 <?php
-$dsn="mysql:host=localhost;charset=utf8;dbname=crud";
-$pdo=new PDO($dsn,'root','');
+include "../function.php";
+$row=all("member");
 
-$rows=$pdo->query("select * from member")->fetchAll(PDO::FETCH_ASSOC);
+// 用include跟$row=all("member")；用function取代下面三行的程式碼
+// $dsn="mysql:host=localhost;charset=utf8;dbname=crud";
+// $pdo=new PDO($dsn,'root','');
+
+// $rows=$pdo->query("select * from member")->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
