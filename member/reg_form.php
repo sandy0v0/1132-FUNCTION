@@ -21,8 +21,8 @@
         form label {
             display: inline-block;
             width: 80px;
+            /* 文字分散對齊 */
             text-align-last: justify;
-
         }
 
         form div {
@@ -51,13 +51,14 @@
 
         }
 
+        /* 讓點選表單放大 */
         form input[type=submit]:hover,
         form input[type=reset]:hover {
             padding: 7px 12px;
         }
 
         form input[type=reset] {
-            background-color: #cc6;
+            background-color: #c6f;
         }
 
         form div:nth-child(5) {
