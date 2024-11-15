@@ -107,7 +107,7 @@
 
 <?php
     include "../function.php";
-starts(8);
+    starts('菱形',21);
 ?>
 </body>
 
