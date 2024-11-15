@@ -10,7 +10,7 @@
 
 <?php
 include "../function.php";
-$row=all("member");
+$rows=all("member");
 
 // 用include跟$row=all("member")；用function取代下面三行的程式碼
 // $dsn="mysql:host=localhost;charset=utf8;dbname=crud";

@@ -62,8 +62,10 @@ break;
 function all($table){
     $dsn="mysql:host=localhost;charset=utf8;dbname=crud";
     $pdo=new PDO($dsn,'root','');
+    // ↓ 拿到整個資料庫的資料
     $sql="select * from $table";
     $rows=$pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    // 把$rows這個變數，傳回all($table)裡面的$table
     return $rows;
 }
 
