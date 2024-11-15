@@ -90,8 +90,8 @@ function pdo($db){
  */
 
 function all($table){
-    /* $pdo=pdo('crud'); */
-    global $pdo;
+    $pdo=pdo('crud');
+    // global $pdo;
 
     // ↓ 拿到整個資料庫的資料
     $sql="select * from $table";
@@ -107,10 +107,10 @@ function all($table){
  * @return array
 */
 
-
 function find($table,$id){
+    $sql="select * from $table where ";
     //↓$pdo移到最上面，因為每個都會用到
-    global $pdo;
+    $pdo=$pdo=pdo('crud');
     // 現在這邊的id是一個"陣列" 很重要 他現在不是數字
     if(is_array($id)){
         $tmp=[];
@@ -120,15 +120,75 @@ function find($table,$id){
             //↓代表這個陣列是空的，從0開始代入
             $tmp[]="`$key`='$value'";
         }
-        $sql="select * from $table where ".join(" && ",$tmp);
+        $sql=$sql.join(" && ",$tmp);
         
     }else{      
-        $sql="select * from $table where id='$id'";
+        $sql=$sql . " `id`='$id'";
     }
     $row=$pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
 
     return $row;
 }  
+
+/**
+ * 刪除指定條件的資料
+ * @param string $table 資料表名稱
+ * @param array $id 條件(數字或陣列)
+ * @return boolean
+ */
+
+ function del($table ,$id){
+    $sql="delete from $table where ";
+    $pdo=$pdo=pdo('crud');
+
+    if(is_array($id)){
+        $tmp=[];
+        foreach($id as $key => $value){
+            //sprintf("`%s`='%s'",$key,$value);
+            $tmp[]="`$key`='$value'";
+        }
+        $sql=$sql.join(" && ",$tmp);
+        
+    }else{
+        $sql=$sql . " id='$id'";
+    }
+
+     return  $pdo->exec($sql);
+    
+}
+
+
+/**
+ * 更新指定條件的資料
+ * @param string $table 資料表名稱
+ * @param array $array 更新的欄位內容
+ * @return array || number $id 條件(數字或陣列)
+ * @return boolean
+ */
+
+ function update($table,$array,$id){
+    $sql="update $table set ";
+    $pdo=$pdo=pdo('crud');
+    $tmp=[];
+    foreach($array as $key => $value){
+        $tmp[]="`$key`='$value'";
+    }
+    $sql=$sql . join(",",$tmp);
+
+    if(is_array($id)){
+        $tmp=[];
+        foreach($id as $key => $value){
+            $tmp[]="`$key`='$value'";
+        }
+        $sql=$sql . " where ".join(" && ",$tmp);
+
+    }else{
+        $sql=$sql . " where `id`='$id'";
+    }
+
+    return $pdo->exec($sql);
+}
+
 
 /**
  * 列出陣列內容
@@ -139,5 +199,6 @@ function dd($array){
     echo "</pre>";
 }
 
+// update('member',['email'=>'19@gmail.com'],['acc'=>'19','pw'=>'19']);
 
 ?>  
