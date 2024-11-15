@@ -57,7 +57,8 @@ break;
     break;  
 }
 }
-
+$dsn="mysql:host=localhost;charset=utf8;dbname=crud";
+$pdo=new PDO($dsn,'root','');
 
 // all()-給定資料表名後，會回傳整個資料表的資料
 /*
@@ -73,18 +74,14 @@ break;
  * @return object (object指的是 物件 )
  */
 function pdo($db){
-    $dsn="mysql:host=localhost;charset=utf8;dbname=crud";
+    $dsn="mysql:host=localhost;charset=utf8;dbname=db";
     $pdo=new PDO($dsn,'root','');
     // ↓ 拿到整個資料庫的資料
-    $sql="select * from $table";
-    $rows=$pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    // $sql="select * from $table";
+    // $rows=$pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     // 把$rows這個變數，傳回all($table)裡面的$table
-    return $rows;
+    return $pdo;
 }
-
-
-
-
 
 /***
  * 回傳指定資料表的所有資料
@@ -93,8 +90,9 @@ function pdo($db){
  */
 
 function all($table){
-    $dsn="mysql:host=localhost;charset=utf8;dbname=crud";
-    $pdo=new PDO($dsn,'root','');
+    /* $pdo=pdo('crud'); */
+    global $pdo;
+
     // ↓ 拿到整個資料庫的資料
     $sql="select * from $table";
     $rows=$pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
@@ -112,7 +110,7 @@ function all($table){
 
 function find($table,$id){
     //↓$pdo移到最上面，因為每個都會用到
-    $pdo=$pdo=pdo('crud');
+    global $pdo;
     // 現在這邊的id是一個"陣列" 很重要 他現在不是數字
     if(is_array($id)){
         $tmp=[];
@@ -130,8 +128,7 @@ function find($table,$id){
     $row=$pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
 
     return $row;
-}
-    
+}  
 
 /**
  * 列出陣列內容
