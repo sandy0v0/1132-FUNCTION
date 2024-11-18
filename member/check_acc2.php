@@ -14,6 +14,8 @@ $pw=$_POST['pw'];
 
 //$sql="select count(id) from `member` where `acc`='$acc' && `pw`='$pw'";
 //echo $sql;
+
+// ↓去member資料表，找出acc.pw，這兩個我們需要的資料
 $row=find('member',['acc'=>$acc,'pw'=>$pw]);
 dd($row);
 //echo "<pre>";

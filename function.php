@@ -73,7 +73,9 @@ break;
  * @param string $db 資料庫名稱
  * @return object (object指的是 物件 )
  */
-function pdo($db){
+
+/* 用function 方式作成PDO，下次好呼叫PD，如果面對多個資料庫，效率佳，如果只是單一則不一定效率好 */
+function pdo($db){ 
     $dsn="mysql:host=localhost;charset=utf8;dbname=db";
     $pdo=new PDO($dsn,'root','');
     // ↓ 拿到整個資料庫的資料
@@ -210,7 +212,7 @@ function find($table,$id){
 
 
 /**
- * 列出陣列內容
+ * 列出陣列($array)內容，這邊改用dd
  */
 function dd($array){
     echo "<pre>";
